@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AutoMapper;
 using Commander.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,8 +26,8 @@ namespace Commander {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<CommanderContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            // services.AddScoped<ICommanderRepository, MockCommanderRepository>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICommanderRepository, SqlCommanderRepository>();
         }
 
